@@ -1,14 +1,21 @@
-const body = document.querySelector("body");
-const button = document.querySelector("[data-action]");
+const btnOpen = document.querySelector("[data-open-modal]");
+const btnClose = document.querySelector("[data-close-modal]");
+const backdrop = document.querySelector(".js-backdrop");
 
-const modalHeandler = (event) => {
-  if (event.target.tagName !== "BUTTON") return;
-  if (event.target.dataset.action === "open-modal") {
-    body.classList.add("show-modal");
-  }
-  if (event.target.dataset.action === "close-modal") {
-    body.classList.remove("show-modal");
-  }
-};
+btnOpen.addEventListener("click", () => {
+  backdrop.classList.remove("is-hidden");
+  document.body.classList.add("no-scroll");
+});
 
-body.addEventListener("click", modalHeandler);
+btnClose.addEventListener("click", closeModal);
+
+backdrop.addEventListener("click", (event) => {
+  if (event.target === backdrop) {
+    closeModal();
+  }
+});
+
+function closeModal() {
+  backdrop.classList.add("is-hidden");
+  document.body.classList.remove("no-scroll");
+}
